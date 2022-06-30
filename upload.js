@@ -8,6 +8,7 @@ form.addEventListener('submit', (e) => {
   const filesinputs = document.querySelectorAll('[type=file]');
 //  console.log(files);
   const formData = new FormData();
+  // const JSONdata = new FormData();
   const data = new FormData(e.target);
   const value = Object.fromEntries(data.entries());
 //console.log(value); // This now holds a JSON object with ALL form fields and their values.
@@ -20,13 +21,16 @@ for (let j = 0; j < filesinputs.length; j++ ) {
     formData.append('files[]', file);
   }
 }
-console.log(formData.get('files[]'));
-  // let file = document.getElementById('MeetingMinutes').files[0];
-  // formData.append('files[]', file);
 
-  fetch(uploadurl, {
+formData.append('jsonfile', 'test.json');
+formData.append('JSON', value);
+// JSONdata.append('jsonfile', 'json/test.json');
+// JSONdata.append('JSON', value);
+
+  fetch(processurl, {
     method: 'POST',
     body: formData,
+//    body: formData,
   }).then((response) => {
     console.log(response)
   })
