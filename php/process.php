@@ -2,6 +2,7 @@
 // Upload all the selected files
 // write a JSON file with the structured data
 //
+// TODO
 // before uploading do some sanity checking
 // Only write the JSON file when ALL uploads succeeded
 $errors = [];
@@ -34,21 +35,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Only respond to 'POST' actions.
     }
 
     // print_r($_FILES);
-    print_r($_POST);
+    // print_r($_POST);
     if ($errors) print_r($errors);
 
-        // ---------------------------------------------
+    // ---------------------------------------------
     // Write out the JSON object
-    //
-    // echo '___' . $_POST['jsonfile'] . '+++';
 
-    $jsonfile = $path . $_POST['jsonfile']; //'json/test.json'; // Set the json-file, base this on the aplicant-name?
-// echo $jsonfile;
-// echo $_POST['jsonfile'];
-    $jsonData = serialize($_POST['JSON']);
-// echo '---' . substr(json_decode($jsonData),12) . '---';
-
-    file_put_contents($jsonfile, substr($jsonData,12)); // write the json contents
+    $jsonfile = $path . $_POST['jsonfile'] . '.json'; // Set the json-file, base this on the aplicant-name?
+    $jsonData = substr(serialize($_POST['JSON']), 19); // remove the unneeded prefix
+    file_put_contents($jsonfile, json_encode($jsonData)); // write the json contents
 
 }
 ;?>

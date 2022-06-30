@@ -10,7 +10,7 @@ form.addEventListener('submit', (e) => {
   const formData = new FormData();
   const data = new FormData(e.target);
   const value = Object.fromEntries(data.entries());
-// console.log(value); // This now holds a JSON object with ALL form fields and their values.
+  // This now holds a JSON object with ALL form fields and their values.
 
 for (let j = 0; j < filesinputs.length; j++ ) {
   let files = filesinputs[j].files;
@@ -20,8 +20,8 @@ for (let j = 0; j < filesinputs.length; j++ ) {
     formData.append('files[]', file);
   }
 }
+  // Make sure that PHP can handle the JSON structure
   var jsonobject = 'json_string=' + (JSON.stringify(value));
-  console.log(jsonobject);
 
   // the name of the json file will be the name of the applicant + the time.
   var jsonname = document.getElementById('ApplicantName').value + '-' + Date.now() ;
